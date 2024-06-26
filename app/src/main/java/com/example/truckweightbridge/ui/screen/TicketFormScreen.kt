@@ -129,19 +129,19 @@ fun TicketFormScreen(
                 Icon(Icons.Rounded.ArrowBack, "")
             }
         }, actions = {
-            if (isEdit) {
-                Icon(
-                    Icons.Outlined.Delete,
-                    contentDescription = "",
-                    modifier = Modifier
-                        .padding(10.dp)
-                        .clickable {
-                            existingTicket?.let {
-                                onClickDelete.invoke(it)
-                            }
-                        }
-                )
-            }
+//            if (isEdit) {
+//                Icon(
+//                    Icons.Outlined.Delete,
+//                    contentDescription = "",
+//                    modifier = Modifier
+//                        .padding(10.dp)
+//                        .clickable {
+//                            existingTicket?.let {
+//                                onClickDelete.invoke(it)
+//                            }
+//                        }
+//                )
+//            }
         })
     }, containerColor = Color.White) {
         Box(

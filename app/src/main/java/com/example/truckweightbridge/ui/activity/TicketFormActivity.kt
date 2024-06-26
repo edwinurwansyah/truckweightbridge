@@ -58,7 +58,7 @@ class TicketFormActivity : ComponentActivity() {
                             it
                         )
                     }, onBackNavigation = {
-
+                        onBackPressed()
                     }, onClickDelete = {
 
                     }, validationResult = viewModel.validationResult.value,
