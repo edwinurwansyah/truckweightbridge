@@ -32,7 +32,7 @@ class TicketListViewModel @Inject constructor(
             }
 
             licenseNumber?.let {
-                query.where("licenseNumber","GREATER_THAN_OR_EQUAL", licenseNumber)
+                query.where("licenseNumber","EQUAL", licenseNumber)
             }
 
             val result = ticketUseCase.getTicket(query.build())
