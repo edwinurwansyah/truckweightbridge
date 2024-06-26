@@ -2,9 +2,9 @@ package com.example.truckweightbridge.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.truckweightbridge.datasource.local.TicketDao
-import com.example.truckweightbridge.datasource.local.TicketDatabase
-import com.example.truckweightbridge.datasource.remote.FirebaseDatabaseApi
+import com.example.truckweightbridge.repository.local.TicketDao
+import com.example.truckweightbridge.repository.local.TicketDatabase
+import com.example.truckweightbridge.repository.remote.FirebaseDatabaseApi
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides

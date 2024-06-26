@@ -2,7 +2,7 @@ package com.example.truckweightbridge.viewModel
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
-import com.example.truckweightbridge.datasource.local.Ticket
+import com.example.truckweightbridge.repository.local.Ticket
 import com.example.truckweightbridge.usecase.TicketUseCase
 import com.example.truckweightbridge.util.Response
 import com.example.truckweightbridge.util.ValidationResult

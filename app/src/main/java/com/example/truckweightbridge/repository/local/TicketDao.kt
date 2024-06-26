@@ -1,4 +1,4 @@
-package com.example.truckweightbridge.datasource.local
+package com.example.truckweightbridge.repository.local
 
 import androidx.room.Dao
 import androidx.room.Delete

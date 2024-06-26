@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">TruckWeightBridge</string>
     <string name="title_activity_ticket_form">TicketFormActivity</string>
+    <string name="title_activity_filter">FilterActivity</string>
 </resources>

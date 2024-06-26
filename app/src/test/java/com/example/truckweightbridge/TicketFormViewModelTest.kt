@@ -1,7 +1,7 @@
 package com.example.truckweightbridge
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.truckweightbridge.datasource.local.Ticket
+import com.example.truckweightbridge.repository.local.Ticket
 import com.example.truckweightbridge.usecase.TicketUseCase
 import com.example.truckweightbridge.util.Response
 import com.example.truckweightbridge.viewModel.TicketFormViewModel

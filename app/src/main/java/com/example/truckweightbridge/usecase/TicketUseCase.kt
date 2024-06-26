@@ -1,6 +1,6 @@
 package com.example.truckweightbridge.usecase
 
-import com.example.truckweightbridge.datasource.local.Ticket
+import com.example.truckweightbridge.repository.local.Ticket
 import com.example.truckweightbridge.util.FirestoreQueryRequest
 import com.example.truckweightbridge.util.Response
 

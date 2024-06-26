@@ -6,6 +6,8 @@ class FirestoreQueryBuilder(private val collectionId: String="truckweightbridge"
     private var orderBy: List<OrderBy>? = null
     private var limit: Int? = null
 
+//    private val fieldFilters = mutableListOf<FieldFilter>()
+    private val filters = mutableListOf<Filter>()
     fun where(field: String, op: String, value: Any): FirestoreQueryBuilder {
         val fieldValue = when (value) {
             is Int -> Value(integerValue = value)
@@ -15,10 +17,11 @@ class FirestoreQueryBuilder(private val collectionId: String="truckweightbridge"
 
         val fieldFilter = FieldFilter(Field(field), op, fieldValue)
         val filter = Filter(fieldFilter)
-        val compositeFilter = CompositeFilter("AND", listOf(filter))
-        this.where = Where(compositeFilter)
+        filters.add(filter)
+//        fieldFilters.add(fieldFilter)
         return this
     }
+
 
     fun orderBy(field: String, direction: String): FirestoreQueryBuilder {
         val order = OrderBy(Field(field), direction)
@@ -33,6 +36,16 @@ class FirestoreQueryBuilder(private val collectionId: String="truckweightbridge"
 
     fun build(): FirestoreQueryRequest {
         val from = listOf(From(collectionId))
+        val where  = if (filters.isNotEmpty()){
+            if (filters.size == 1) {
+                Where(fieldFilter = filters[0].fieldFilter)
+            } else {
+                Where(CompositeFilter("AND", filters))
+            }
+        }else{
+            null
+        }
+
         val structuredQuery = StructuredQuery(from, where, orderBy, limit)
         return FirestoreQueryRequest(structuredQuery)
     }

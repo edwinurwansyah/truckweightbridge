@@ -1,8 +1,6 @@
-package com.example.truckweightbridge.datasource.local
+package com.example.truckweightbridge.repository.local
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(entities = [Ticket::class], version = 1)

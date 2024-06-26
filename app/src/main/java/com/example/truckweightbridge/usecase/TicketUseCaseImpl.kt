@@ -1,13 +1,14 @@
 package com.example.truckweightbridge.usecase
 
-import com.example.truckweightbridge.datasource.local.Ticket
-import com.example.truckweightbridge.datasource.local.TicketDao
-import com.example.truckweightbridge.datasource.remote.FirebaseDatabaseApi
+import com.example.truckweightbridge.repository.local.Ticket
+import com.example.truckweightbridge.repository.local.TicketDao
+import com.example.truckweightbridge.repository.remote.FirebaseDatabaseApi
 import com.example.truckweightbridge.util.Fields
 import com.example.truckweightbridge.util.FirestoreQueryRequest
 import com.example.truckweightbridge.util.IntegerValue
 import com.example.truckweightbridge.util.Response
 import com.example.truckweightbridge.util.StringValue
+import okio.IOException
 import javax.inject.Inject
 
 class TicketUseCaseImpl @Inject constructor(val firebaseDatabaseApi: FirebaseDatabaseApi, val ticketDao: TicketDao) : TicketUseCase {
@@ -28,7 +29,7 @@ class TicketUseCaseImpl @Inject constructor(val firebaseDatabaseApi: FirebaseDat
                 ticket.firestoreDocId = response.body()?.getOrDefault("name","").toString().split("/").last()
                 ticketDao.insertTicket(ticket)
             }
-            Response.Success(response.isSuccessful)
+            Response.Success(response.code() == 200)
         }catch (e:Exception){
             Response.Error(e.message.toString())
         }
@@ -50,7 +51,7 @@ class TicketUseCaseImpl @Inject constructor(val firebaseDatabaseApi: FirebaseDat
             if (response.isSuccessful){
                 ticketDao.updateTicket(ticket)
             }
-            Response.Success(response.isSuccessful)
+            Response.Success(response.code() == 200)
         }catch (e:Exception){
             Response.Error(e.message.toString())
         }
@@ -61,20 +62,31 @@ class TicketUseCaseImpl @Inject constructor(val firebaseDatabaseApi: FirebaseDat
     ): Response<List<Ticket>> {
         return try {
             val response = firebaseDatabaseApi.getTicket(firestoreQueryRequest)
-            return Response.Success(data = response.map { response ->
-                Ticket(
-                    id = (response.document.fields.id?.integerValue?:"0").toLong(),
-                    dateTime = (response.document.fields.dateTime?.stringValue?:"0"),
-                    licenseNumber = (response.document.fields.licenseNumber?.integerValue?:"0"),
-                    driverName = response.document.fields.driverName?.stringValue.orEmpty(),
-                    inboundWeight = (response.document.fields.inboundWeight?.integerValue?:"0"),
-                    outboundWeight = (response.document.fields.outboundWeight?.integerValue?:"0"),
-                    netWeight = (response.document.fields.netWeight?.integerValue?:"0"),
-                    firestoreDocId = response.document.name.split("/").last()
-                )
-            })
+            if (response?.getOrNull(0)?.document == null){
+                return Response.Success(data = listOf())
+            }else{
+                return Response.Success(data = response.map { response ->
+                    Ticket(
+                        id = (response.document?.fields?.id?.integerValue?:"0").toLong(),
+                        dateTime = (response.document?.fields?.dateTime?.stringValue?:"0"),
+                        licenseNumber = (response.document?.fields?.licenseNumber?.integerValue?:"0"),
+                        driverName = response.document?.fields?.driverName?.stringValue.orEmpty(),
+                        inboundWeight = (response.document?.fields?.inboundWeight?.integerValue?:"0"),
+                        outboundWeight = (response.document?.fields?.outboundWeight?.integerValue?:"0"),
+                        netWeight = (response.document?.fields?.netWeight?.integerValue?:"0"),
+                        firestoreDocId = response.document?.name.orEmpty().split("/").last()
+                    )
+                })
+            }
+
         }catch (e:Exception){
-            val dataLocal = ticketDao.getAllTicket()
+
+            val dataLocal =  if (e is IOException){
+                ticketDao.getAllTicket()
+            }else{
+                null
+            }
+
             Response.Error(message = e.message.orEmpty(), data = dataLocal)
         }
     }

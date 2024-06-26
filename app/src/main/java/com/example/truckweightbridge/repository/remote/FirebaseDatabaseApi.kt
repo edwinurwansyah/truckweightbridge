@@ -1,10 +1,8 @@
-package com.example.truckweightbridge.datasource.remote
+package com.example.truckweightbridge.repository.remote
 
-import com.example.truckweightbridge.util.Field
 import com.example.truckweightbridge.util.Fields
 import com.example.truckweightbridge.util.FirestoreDocumentResponse
 import com.example.truckweightbridge.util.FirestoreQueryRequest
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -33,5 +31,5 @@ interface FirebaseDatabaseApi {
     @POST("./documents:runQuery")
     suspend fun getTicket(
         @Body request: FirestoreQueryRequest
-    ): List<FirestoreDocumentResponse>
+    ): List<FirestoreDocumentResponse>?
 }

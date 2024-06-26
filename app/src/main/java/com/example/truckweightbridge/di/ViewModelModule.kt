@@ -1,7 +1,7 @@
 package com.example.truckweightbridge.di
 
-import com.example.truckweightbridge.datasource.local.TicketDao
-import com.example.truckweightbridge.datasource.remote.FirebaseDatabaseApi
+import com.example.truckweightbridge.repository.local.TicketDao
+import com.example.truckweightbridge.repository.remote.FirebaseDatabaseApi
 import com.example.truckweightbridge.usecase.TicketUseCase
 import com.example.truckweightbridge.usecase.TicketUseCaseImpl
 import dagger.Module

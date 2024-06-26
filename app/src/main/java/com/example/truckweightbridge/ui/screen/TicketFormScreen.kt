@@ -19,8 +19,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DatePickerState
@@ -33,7 +33,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TimePicker
 import androidx.compose.material3.TimePickerLayoutType
 import androidx.compose.material3.TimePickerState
@@ -53,19 +52,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
-import com.example.truckweightbridge.datasource.local.Ticket
-import com.example.truckweightbridge.ui.theme.TruckWeightBridgeTheme
+import com.example.truckweightbridge.repository.local.Ticket
 import com.example.truckweightbridge.util.ValidationResult
 import com.example.truckweightbridge.util.convertTimeMillisToString
 import com.example.truckweightbridge.util.getCurrentDateTimeMillis
 import com.example.truckweightbridge.util.getCurrentTimeUsingCalendar
-import com.example.truckweightbridge.util.toSafeInt
-import com.example.truckweightbridge.util.toSafeLong
-import com.example.truckweightbridge.viewModel.TicketFormViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -317,7 +311,8 @@ fun TicketFormScreen(
                             )
                         )
                     },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    colors =  ButtonDefaults.buttonColors(containerColor = Color.Black)
                 ) {
                     Text("Save")
                 }

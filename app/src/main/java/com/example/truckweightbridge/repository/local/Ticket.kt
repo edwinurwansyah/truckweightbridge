@@ -1,4 +1,4 @@
-package com.example.truckweightbridge.datasource.local
+package com.example.truckweightbridge.repository.local
 
 import android.os.Parcelable
 import androidx.room.Entity

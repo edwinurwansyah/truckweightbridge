@@ -1,7 +1,7 @@
 package com.example.truckweightbridge.viewModel
 
 import androidx.lifecycle.MutableLiveData
-import com.example.truckweightbridge.datasource.local.Ticket
+import com.example.truckweightbridge.repository.local.Ticket
 import com.example.truckweightbridge.usecase.TicketUseCase
 import com.example.truckweightbridge.util.FirestoreQueryBuilder
 import com.example.truckweightbridge.util.Response
@@ -15,14 +15,27 @@ class TicketListViewModel @Inject constructor(
     val ticketUseCase: TicketUseCase
 ) : BaseViewModel(Dispatchers.IO) {
 
-    private val _getTicketResponse= MutableLiveData<Response<List<Ticket>>>()
-    val getTicketResponse: MutableLiveData<Response<List<Ticket>>> =  _getTicketResponse
+    private val _getTicketResponse = MutableLiveData<Response<List<Ticket>>>()
+    val getTicketResponse: MutableLiveData<Response<List<Ticket>>> = _getTicketResponse
 
-    fun getTicket(){
+    fun getTicket(dateTime:String? = null,driverName: String? = null, licenseNumber:String?=null) {
         launch {
             val query = FirestoreQueryBuilder()
-                .build()
-            val result = ticketUseCase.getTicket(query)
+
+            dateTime?.let {
+                query.where("dateTime","GREATER_THAN_OR_EQUAL", dateTime)
+            }
+
+            driverName?.let {
+
+                query.where("driverName","GREATER_THAN_OR_EQUAL", driverName)
+            }
+
+            licenseNumber?.let {
+                query.where("licenseNumber","GREATER_THAN_OR_EQUAL", licenseNumber)
+            }
+
+            val result = ticketUseCase.getTicket(query.build())
             _getTicketResponse.postValue(result)
         }
     }

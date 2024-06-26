@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.example.truckweightbridge.datasource.local.Ticket
+import com.example.truckweightbridge.repository.local.Ticket
 import com.example.truckweightbridge.ui.screen.TicketFormScreen
 import com.example.truckweightbridge.ui.theme.TruckWeightBridgeTheme
 import com.example.truckweightbridge.util.Response
@@ -76,6 +76,7 @@ class TicketFormActivity : ComponentActivity() {
                 is Response.Success -> {
                     progressDialog.dismiss()
                     Toast.makeText(this, "Ticket Berhasil Ditambahkan", Toast.LENGTH_LONG).show()
+                    setResult(RESULT_OK)
                     finish()
                 }
 

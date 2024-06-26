@@ -16,9 +16,8 @@ data class From(
     val collectionId: String
 )
 
-data class Where(
-    val compositeFilter: CompositeFilter
-)
+data class Where(val compositeFilter: CompositeFilter? = null, val fieldFilter: FieldFilter? = null, val filters: List<Filter>? = null)
+
 
 data class CompositeFilter(
     val op: String,
@@ -50,7 +49,7 @@ data class OrderBy(
 )
 
 data class FirestoreDocumentResponse(
-    val document: FirestoreDocument
+    val document: FirestoreDocument?
 )
 
 data class FirestoreDocument(
